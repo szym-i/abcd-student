@@ -14,7 +14,7 @@ pipeline {
         }
         stage('[ZAP] Baseline passive-scan') {
             steps {
-		sh 'ls -la'
+		sh 'ls -la .zap'
 		sh 'pwd'
                 sh 'mkdir -p results/'
                 sh '''
