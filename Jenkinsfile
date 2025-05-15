@@ -15,7 +15,7 @@ pipeline {
         stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh 'mkdir -p results/'
-		sh 'mkdir -p zap/wrk/reports'
+		sh 'mkdir -p /zap/wrk/reports'
                 sh '''
                     docker run --name juice-shop -d --rm \
                         -p 3000:3000 \
