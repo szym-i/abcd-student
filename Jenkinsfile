@@ -39,7 +39,7 @@ pipeline {
                         docker stop zap juice-shop
                         docker rm zap
                     '''
-                    archiveArtifacts artifacts: '${WORKSPACE}/results/zap_*.{html,xml}', fingerprint: true
+                    archiveArtifacts artifacts: 'results/zap_*.html, results/zap_*.xml', fingerprint: true
                 }
             }
         }
