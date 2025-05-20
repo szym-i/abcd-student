@@ -43,5 +43,21 @@ pipeline {
                 }
             }
         }
+        stage('[OSV] Scan package-lock.json') {
+            steps {
+                sh '''
+                    docker run --rm \
+                        -v "${WORKSPACE}:/app" \
+                        -w /app \
+                        ghcr.io/google/osv-scanner:latest \
+                        scan --lockfile package-lock.json > osv-results.json
+                '''
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'osv-results.json', fingerprint: true
+                }
+            }
+        }
     }
 }
