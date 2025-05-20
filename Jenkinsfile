@@ -45,6 +45,7 @@ pipeline {
         }
         stage('[OSV] Scan package-lock.json') {
             steps {
+                sh 'ls -l ${WORKSPACE}/package-lock.json'
                 sh '''
                     docker run --rm \
                         -v "${WORKSPACE}:/app" \
