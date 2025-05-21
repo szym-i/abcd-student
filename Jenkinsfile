@@ -51,7 +51,7 @@ pipeline {
                         -v "${WORKSPACE}":/app:rw \
                         -w /app \
                         ghcr.io/google/osv-scanner:latest \
-                        scan --lockfile package-lock.json > osv-results.json
+                        scan --lockfile /app/package-lock.json > osv-results.json
                 '''
             }
             post {
