@@ -48,6 +48,9 @@ pipeline {
                 sh '''
                     mkdir -p /tmp/osv-scan
                     cp package-lock.json /tmp/osv-scan/
+                    ls -la /tmp/osv-scan/package-lock.json                 
+                '''
+                sh '''
                     docker run --rm \
                     -v /tmp/osv-scan:/app \
                     ghcr.io/google/osv-scanner \
