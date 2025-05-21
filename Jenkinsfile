@@ -48,7 +48,7 @@ pipeline {
                 sh '''
                     mkdir -p /tmp/osv-scan
                     cp package-lock.json /tmp/osv-scan/
-                    ls -la /tmp/osv-scan/package-lock.json                 
+                    chmod 777 /tmp/osv-scan/package-lock.json                 
                 '''
                 sh '''
                     docker run --rm \
