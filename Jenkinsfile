@@ -47,7 +47,7 @@ pipeline {
             steps {
                 sh 'ls'
                 sh 'echo ${WORKSPACE}'
-                sh 'echo ${env.WORKSPACE}'
+                sh 'pwd'
                 sh '''
                     docker run --rm -v "${env.WORKSPACE}":/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json > osv-results.json
                     '''
