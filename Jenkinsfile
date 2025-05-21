@@ -49,7 +49,7 @@ pipeline {
                 sh 'echo ${WORKSPACE}'
                 sh 'pwd'
                 sh '''
-                    docker run --rm -v "${env.WORKSPACE}":/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json > osv-results.json
+                    docker run --rm -v "${WORKSPACE}"/:/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json
                     '''
                 // sh '''
                 //     docker run --rm \
