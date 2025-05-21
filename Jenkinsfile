@@ -45,7 +45,7 @@ pipeline {
         }
         stage('[OSV] Scan package-lock.json') {
             steps {
-                sh 'osv-scanner scan --lockfile package-lock.json > results/osv_scan_report.txt'
+                sh 'osv-scanner scan --lockfile package-lock.json > ${WORKSPACE}/results/osv_scan_report.txt'
             }
             post {
                 always {
