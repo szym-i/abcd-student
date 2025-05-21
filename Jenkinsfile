@@ -51,9 +51,10 @@ pipeline {
                     chmod 777 "${WORKSPACE}/tmp/osv-scan/package-lock.json"
                     ls -l "${WORKSPACE}/tmp/osv-scan/package-lock.json"                 
                 '''
+                sh 'docker run --rm -v "${WORKSPACE}/tmp/osv-scan/":/app ghcr.io/google/osv-scanner --entrypoint sh -c "ls -l /app"'
                 sh '''
                     docker run --rm \
-                    -v "${WORKSPACE}/tmp/osv-scan/":/app/ \
+                    -v "${WORKSPACE}/tmp/osv-scan":/app \
                     ghcr.io/google/osv-scanner \
                     --lockfile /app/package-lock.json > osv-results.json
                 '''
