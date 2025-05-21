@@ -46,6 +46,7 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 sh '''
+                    set -x
                     docker run --rm \
                         -v $(pwd):/app \
                         --entrypoint sh \
