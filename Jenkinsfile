@@ -49,7 +49,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'results/osv-results.json', fingerprint: true
+                    archiveArtifacts artifacts: 'results/osv-results.txt', fingerprint: true
                 }
             }
         }
