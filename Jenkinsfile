@@ -46,7 +46,8 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 sh '''
-                    docker run --rm -v "$PWD":/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json > osv-results.json
+                    docker run --rm --add-host=host.docker.internal:host-gateway \
+                    -v "$PWD":/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json > osv-results.json
                     '''
                 // sh '''
                 //     docker run --rm \
