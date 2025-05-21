@@ -15,7 +15,7 @@ pipeline {
         stage('[ZAP] Baseline passive-scan') {
             steps {
                 sh 'mkdir -p ${WORKSPACE}/results'
-		sh 'mkdir -p "${WORKSPACE}/.zap/reports"'
+		        sh 'mkdir -p "${WORKSPACE}/.zap/reports"'
                 sh '''
                     docker run --name juice-shop -d --rm \
                         -p 3000:3000 \
@@ -44,10 +44,8 @@ pipeline {
             }
         }
         stage('[OSV] Scan package-lock.json') {
-            stage('OSV-Scanner') {
-                steps {
-                    sh 'osv-scanner scan --lockfile package-lock.json > results/osv_scan_report.txt'
-                }
+            steps {
+                sh 'osv-scanner scan --lockfile package-lock.json > results/osv_scan_report.txt'
             }
             post {
                 always {
