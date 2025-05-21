@@ -44,22 +44,15 @@ pipeline {
         //     }
         // }
         stage('[OSV] Scan package-lock.json') {
-            steps {
-                sh '''
-                    mkdir -p "${WORKSPACE}/osv-scan"
-                    cp package-lock.json "${WORKSPACE}/osv-scan/"
-                    chmod 777 "${WORKSPACE}/osv-scan/package-lock.json"
-                    ls -l "${WORKSPACE}/osv-scan/package-lock.json"                 
-                '''
-                sh '''
-                    docker run -v "${WORKSPACE}/osv-scan":/app \
-                    ghcr.io/google/osv-scanner \
-                    --lockfile /app/package-lock.json > osv-results.json
-                '''
+            stage('OSV-Scanner') {
+                steps {
+                    sh 'mkdir results'
+                    sh 'osv-scanner scan --lockfile package-lock.json > results/osv_scan_report.txt'
+                }
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'osv-results.json', fingerprint: true
+                    archiveArtifacts artifacts: 'results/osv-results.json', fingerprint: true
                 }
             }
         }
