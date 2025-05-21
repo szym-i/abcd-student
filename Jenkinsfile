@@ -45,8 +45,8 @@ pipeline {
         // }
         stage('[OSV] Scan package-lock.json') {
             steps {
-                sh 'docker run --rm -v $(pwd):/app ghcr.io/google/osv-scanner ls -la /app'
-                sh 'docker run --rm -v "${WORKSPACE}":/app ghcr.io/google/osv-scanner ls -la /app'
+                sh 'docker run --rm -v $(pwd):/app ghcr.io/google/osv-scanner ls -la'
+                sh 'docker run --rm -v "${WORKSPACE}":/app ghcr.io/google/osv-scanner ls -la'
                 // sh '''
                 //     docker run --rm \
                 //         -v "${WORKSPACE}":/app/:rw \
