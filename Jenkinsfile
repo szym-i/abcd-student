@@ -45,9 +45,7 @@ pipeline {
         // }
         stage('[OSV] Scan package-lock.json') {
             steps {
-                sh 'ls'
-                sh 'echo ${WORKSPACE}'
-                sh 'pwd'
+                sh 'ls -l /var/jenkins_home/workspace/Example/package-lock.json'
                 sh '''
                     docker run --rm -v "${WORKSPACE}"/:/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json
                     '''
