@@ -53,7 +53,7 @@ pipeline {
                 '''
                 sh '''
                     docker run --rm \
-                    -v "${WORKSPACE}/tmp/osv-scan/:/app/ \
+                    -v "${WORKSPACE}/tmp/osv-scan/":/app/ \
                     ghcr.io/google/osv-scanner \
                     --lockfile /app/package-lock.json > osv-results.json
                 '''
