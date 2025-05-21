@@ -46,7 +46,8 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 script {
-                    sh 'osv-scanner scan --lockfile package-lock.json > "${WORKSPACE}/results/osv-results.txt"'
+                    sh 'osv-scanner scan --lockfile package-lock.json > "${WORKSPACE}/results/osv-results.txt"',
+                    returnStatus: true
                 }
                 archiveArtifacts artifacts: 'results/osv-results.txt', fingerprint: true
             }
