@@ -46,15 +46,15 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 sh '''
-                    mkdir -p "${WORKSPACE}/tmp/osv-scan"
-                    cp package-lock.json "${WORKSPACE}/tmp/osv-scan/"
-                    chmod 777 "${WORKSPACE}/tmp/osv-scan/package-lock.json"
-                    ls -l "${WORKSPACE}/tmp/osv-scan/package-lock.json"                 
+                    mkdir -p "${WORKSPACE}/osv-scan"
+                    cp package-lock.json "${WORKSPACE}/osv-scan/"
+                    chmod 777 "${WORKSPACE}/osv-scan/package-lock.json"
+                    ls -l "${WORKSPACE}/osv-scan/package-lock.json"                 
                 '''
-                sh 'docker run -it -v "${WORKSPACE}/tmp/osv-scan/":/app ghcr.io/google/osv-scanner sh -c "ls -l /app"'
+                sh 'docker run --rm -v "${WORKSPACE}/osv-scan/":/app ghcr.io/google/osv-scanner sh -c "ls -l /app"'
                 sh '''
                     docker run -it \
-                    -v "${WORKSPACE}/tmp/osv-scan":/app \
+                    -v "${WORKSPACE}/osv-scan":/app \
                     ghcr.io/google/osv-scanner \
                     --lockfile /app/package-lock.json > osv-results.json
                 '''
