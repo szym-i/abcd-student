@@ -45,17 +45,14 @@ pipeline {
         // }
         stage('[OSV] Scan package-lock.json') {
             steps {
-                sh 'ls -l /var/jenkins_home/workspace/Example/package-lock.json'
                 sh '''
-                    docker run --rm -v "${WORKSPACE}"/:/app/ ghcr.io/google/osv-scanner --lockfile /app/package-lock.json
-                    '''
-                // sh '''
-                //     docker run --rm \
-                //         -v "${WORKSPACE}":/app/:rw \
-                //         -w /app \
-                //         ghcr.io/google/osv-scanner:latest \
-                //         scan --lockfile /app/package-lock.json > osv-results.json
-                // '''
+                    mkdir -p /tmp/osv-scan
+                    cp package-lock.json /tmp/osv-scan/
+                    docker run --rm \
+                    -v /tmp/osv-scan:/app \
+                    ghcr.io/google/osv-scanner \
+                    --lockfile /app/package-lock.json > osv-results.json
+                '''
             }
             post {
                 always {
