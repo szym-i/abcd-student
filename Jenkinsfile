@@ -46,15 +46,15 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 script {
-                    sh 'osv-scanner scan --lockfile package-lock.json > "${WORKSPACE}/results/osv-results.txt"  || true'
+                    sh 'osv-scanner scan --lockfile package-lock.json --format json > "${WORKSPACE}/results/osv-results.json"  || true'
                 }
-                archiveArtifacts artifacts: 'results/osv-results.txt', fingerprint: true
+                archiveArtifacts artifacts: 'results/osv-results.json', fingerprint: true
             }
         }
         stage('[TruffleHog] Scan repository') {
             steps {
                 script {
-                    sh 'trufflehog git file://. --branch main --only-verified --fail --json > "${WORKSPACE}/results/trufflehog_scan.json"'
+                    sh 'trufflehog git file://. --branch main --only-verified --fail --json 2>/dev/null > "${WORKSPACE}/results/trufflehog_scan.json"'
                 }
                 archiveArtifacts artifacts: 'results/trufflehog_scan.json', fingerprint: true
             }
