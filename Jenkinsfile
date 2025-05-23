@@ -51,5 +51,13 @@ pipeline {
                 archiveArtifacts artifacts: 'results/osv-results.txt', fingerprint: true
             }
         }
+        stage('[TruffleHog] Scan repository') {
+            steps {
+                script {
+                    sh 'trufflehog git file://. --since-commit HEAD --branch main --only-verified --fail > "${WORKSPACE}/results/trufflehog_scan.txt'
+                }
+                archiveArtifacts artifacts: 'results/trufflehog_scan.txt', fingerprint: true
+            }
+        }
     }
 }
