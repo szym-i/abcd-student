@@ -54,9 +54,9 @@ pipeline {
         stage('[TruffleHog] Scan repository') {
             steps {
                 script {
-                    sh 'trufflehog git file://. --branch main --only-verified --fail --json > "${WORKSPACE}/results/trufflehog_scan.txt" 2>&1'
+                    sh 'trufflehog git file://. --branch main --only-verified --fail --json > "${WORKSPACE}/results/trufflehog_scan.json" 2>&1'
                 }
-                archiveArtifacts artifacts: 'results/trufflehog_scan.txt', fingerprint: true
+                archiveArtifacts artifacts: 'results/trufflehog_scan.json', fingerprint: true
             }
         }
     }
