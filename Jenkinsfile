@@ -46,9 +46,9 @@ pipeline {
         stage('[OSV] Scan package-lock.json') {
             steps {
                 script {
-                    sh 'osv-scanner scan --lockfile package-lock.json --format json > "${WORKSPACE}/results/osv-results.json"  || true'
+                    sh 'osv-scanner scan --lockfile package-lock.json --format json > "${WORKSPACE}/results/osv_scan.json"  || true'
                 }
-                archiveArtifacts artifacts: 'results/osv-results.json', fingerprint: true
+                archiveArtifacts artifacts: 'results/osv_scan.json', fingerprint: true
             }
         }
         stage('[TruffleHog] Scan repository') {
