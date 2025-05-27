@@ -59,5 +59,13 @@ pipeline {
                 archiveArtifacts artifacts: 'results/trufflehog_scan.json', fingerprint: true
             }
         }
+        stage('[Semgrep] Scan repository') {
+            steps {
+                script {
+                    sh 'semgrep scan --config auto --json-output="${WORKSPACE}/results/semgrep_scan.json"'
+                }
+                archiveArtifacts artifacts: 'results/semgrep_scan.json', fingerprint: true
+            }
+        }
     }
 }
